@@ -731,19 +731,20 @@ local key_mappings = {
 		["<C-l>"] = "<C-w>l",
 
 		-- Resize with arrows
-		["<C-Up>"] = ":resize -2<CR>",
-		["<C-Down>"] = ":resize +2<CR>",
-		["<C-Left>"] = ":vertical resize -2<CR>",
-		["<C-Right>"] = ":vertical resize +2<CR>",
+		['<C-Up>'] = ':resize -2<CR>',
+		['<C-Down>'] = ':resize +2<CR>',
+		['<C-Left>'] = ':vertical resize -2<CR>',
+		['<C-Right>'] = ":vertical resize +2<CR>",
 
 		-- Move current line / block with Alt-j/k a la vscode.
-		["<A-j>"] = ":m .+1<CR>==",
-		["<A-k>"] = ":m .-2<CR>==",
+		['<A-j>'] = ':m .+1<CR>==',
+		['<A-k>'] = ':m .-2<CR>==',
 
 		-- QuickFix
-		["]q"] = ":cnext<CR>",
-		["[q"] = ":cprev<CR>",
-		["<C-q>"] = ":call QuickFixToggle()<CR>",
+		[']q'] = ':cnext<CR>',
+		['[q'] = ':cprev<CR>',
+		['<C-q>'] = ':call QuickFixToggle()<CR>',
+		['<leader>e'] = ':e! ~/.config/nvim/init.lua<cr>',
 	},
 	visual_mode = {
 		-- Better indenting
@@ -755,7 +756,8 @@ local key_mappings = {
 		['$$'] = '<esc>`>a"<esc>`<i"<esc>',
 		['$q'] = "<esc>`>a'<esc>`<i'<esc>",
 		['$e'] = '<esc>`>a`<esc>`<i`<esc>',
-		['<leader>r'] = "<cmd>lua VisualSelection()<CR>"
+		['<leader>r'] = '<cmd>lua VisualSelection()<CR>',
+		['<leader>q'] = ':e ~/buffer'
 	},
 	visual_block_mode = {
 		-- Move current line / block with Alt-j/k ala vscode.
