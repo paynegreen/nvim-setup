@@ -103,7 +103,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- Lsp
-local lspconfig = require("lspconfig")
 -- Neovim doesn't support snippets out of the box, so we need to mutate the
 -- capabilities we send to the language server to let them know we want snippets.
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -195,7 +194,7 @@ null_ls.setup({
 		null_ls.builtins.code_actions.shellcheck,
 		null_ls.builtins.completion.luasnip,
 		-- null_ls.builtins.diagnostics.codespell,
-		null_ls.builtins.diagnostics.write_good,
+		-- null_ls.builtins.diagnostics.write_good,
 		null_ls.builtins.diagnostics.zsh
 	},
 })
