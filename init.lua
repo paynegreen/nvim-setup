@@ -744,6 +744,7 @@ local key_mappings = {
 		['[q'] = ':cprev<CR>',
 		['<C-q>'] = ':call QuickFixToggle()<CR>',
 		['<leader>e'] = ':e! ~/.config/nvim/init.lua<cr>',
+		['<leader>q'] = ':e ~/buffer<CR>'
 	},
 	visual_mode = {
 		-- Better indenting
@@ -756,7 +757,6 @@ local key_mappings = {
 		['$q'] = "<esc>`>a'<esc>`<i'<esc>",
 		['$e'] = '<esc>`>a`<esc>`<i`<esc>',
 		['<leader>r'] = '<cmd>lua VisualSelection()<CR>',
-		['<leader>q'] = ':e ~/buffer'
 	},
 	visual_block_mode = {
 		-- Move current line / block with Alt-j/k ala vscode.
