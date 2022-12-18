@@ -1,6 +1,5 @@
 -- Plugins
 vim.cmd [[packadd packer.nvim]]
-
 require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 	use { "neovim/nvim-lspconfig" }
@@ -95,6 +94,20 @@ require('packer').startup(function(use)
 	}
 	use { 'phaazon/hop.nvim' }
 	use { 'folke/trouble.nvim' }
+	use {
+		"folke/noice.nvim",
+		requires = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			"rcarriga/nvim-notify",
+		}
+	}
+	use {
+		"smjonas/inc-rename.nvim",
+	}
 end)
 
 -- Setup
@@ -106,6 +119,13 @@ vim.g.loaded_netrwPlugin = 1
 -- Neovim doesn't support snippets out of the box, so we need to mutate the
 -- capabilities we send to the language server to let them know we want snippets.
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+vim.diagnostic.config({
+	virtual_text = false
+})
+-- Show line diagnostics automatically in hover window
+vim.o.updatetime = 250
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 -- A callback that will get called when a buffer connects to the language server.
 -- Here we create any key maps that we want to have on that buffer.
@@ -137,7 +157,7 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
 	buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 	buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-	buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+	-- buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 	buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 	buf_set_keymap('n', '<F6>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 	buf_set_keymap('n', 'gR', '<cmd>Telescope lsp_references<cr>', opts)
@@ -682,7 +702,29 @@ require("nvim-treesitter.configs").setup { autopairs = { enable = true }, contex
 -- Comment
 require('Comment').setup()
 
--- Trouble
+-- Noice
+require("noice").setup({
+	lsp = {
+		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+		override = {
+			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+			["vim.lsp.util.stylize_markdown"] = true,
+			["cmp.entry.get_documentation"] = true,
+		},
+	},
+	-- you can enable a preset for easier configuration
+	presets = {
+		bottom_search = true, -- use a classic bottom cmdline for search
+		command_palette = true, -- position the cmdline and popupmenu together
+		long_message_to_split = true, -- long messages will be sent to a split
+		inc_rename = true, -- enables an input dialog for inc-rename.nvim
+		lsp_doc_border = false, -- add a border to hover docs and signature help
+	}
+})
+
+-- IncRename
+require("inc_rename").setup()
+
 
 -- Keymappings
 vim.g.mapleader = ","
@@ -804,3 +846,7 @@ vim.api.nvim_set_keymap('v', '<space><space>j',
 vim.api.nvim_set_keymap('v', '<space><space>k',
 	"<cmd>lua require'hop'.hint_lines_skip_whitespace({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
 	{})
+
+vim.keymap.set("n", "<leader>r", function()
+	return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
