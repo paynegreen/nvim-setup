@@ -108,6 +108,9 @@ require('packer').startup(function(use)
 	use {
 		"smjonas/inc-rename.nvim",
 	}
+	use {
+		"folke/todo-comments.nvim"
+	}
 end)
 
 -- Setup
@@ -724,6 +727,9 @@ require("noice").setup({
 
 -- IncRename
 require("inc_rename").setup()
+
+-- Todo-Comments
+require("todo-comments").setup {}
 
 
 -- Keymappings
