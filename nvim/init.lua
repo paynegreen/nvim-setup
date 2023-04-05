@@ -203,8 +203,10 @@ require("mason-lspconfig").setup_handlers {
 			root_dir = require("lspconfig/util").root_pattern("mix.lock", ".git"),
 			settings = {
 				elixirLS = {
+					suggestSpecs = true,
+					testLenses = true,
 					dialyzerEnabled = true,
-					fetchDeps = true
+					fetchDeps = true,
 				}
 			}
 		}
@@ -220,10 +222,13 @@ null_ls.setup({
 		-- null_ls.builtins.completion.spell,
 		-- null_ls.builtins.code_actions.gitsigns,
 		null_ls.builtins.code_actions.shellcheck,
+		null_ls.builtins.diagnostics.shellcheck,
 		null_ls.builtins.completion.luasnip,
 		-- null_ls.builtins.diagnostics.codespell,
 		-- null_ls.builtins.diagnostics.write_good,
-		null_ls.builtins.diagnostics.zsh
+		null_ls.builtins.diagnostics.zsh,
+		null_ls.builtins.diagnostics.jsonlint,
+		null_ls.builtins.diagnostics.credo.with({ env = { MIX_ENV = "test" } }),
 	},
 })
 
@@ -504,34 +509,46 @@ require('lualine').setup({
 		lualine_a = { { 'mode', padding = { left = 0, right = 0 }, cond = nil, color = {} } },
 		lualine_b = { { 'branch', 'b:gitsigns_head', color = { gui = 'bold' } } },
 		lualine_c = { diff, { 'filename', color = {}, cond = nil } },
-		lualine_x = { { 'diagnostics', sources = { 'nvim_diagnostic' } }, lsp, { 'spaces', function()
-			return vim.api.nvim_buf_get_option(0, "shiftwidth")
-		end, padding = 1 }, { 'filetype', cond = nil, padding = { left = 1, right = 1 } } },
+		lualine_x = { { 'diagnostics', sources = { 'nvim_diagnostic' } }, lsp, {
+			'spaces',
+			function()
+				return vim.api.nvim_buf_get_option(0, "shiftwidth")
+			end,
+			padding = 1
+		}, { 'filetype', cond = nil,                     padding = { left = 1, right = 1 } } },
 		lualine_y = { "location" },
 		lualine_z = {
 			'progress',
-			{ 'progress',
+			{
+				'progress',
 				fmt = function()
 					return "%L"
 				end,
-				color = {} }
+				color = {}
+			}
 		},
 	},
 	inactive_sections = {
 		lualine_a = { { 'mode', padding = { left = 0, right = 0 }, cond = nil, color = {} } },
 		lualine_b = { { 'branch', 'b:gitsigns_head', color = { gui = 'bold' } } },
 		lualine_c = { diff, { 'filename', color = {}, cond = nil } },
-		lualine_x = { { 'diagnostics', sources = { 'nvim_diagnostic' } }, lsp, { 'spaces', function()
-			return vim.api.nvim_buf_get_option(0, "shiftwidth")
-		end, padding = 1 }, { 'filetype', cond = nil, padding = { left = 1, right = 1 } } },
+		lualine_x = { { 'diagnostics', sources = { 'nvim_diagnostic' } }, lsp, {
+			'spaces',
+			function()
+				return vim.api.nvim_buf_get_option(0, "shiftwidth")
+			end,
+			padding = 1
+		}, { 'filetype', cond = nil,                     padding = { left = 1, right = 1 } } },
 		lualine_y = { "location" },
 		lualine_z = {
 			'progress',
-			{ 'progress',
+			{
+				'progress',
 				fmt = function()
 					return "%L"
 				end,
-				color = {} }
+				color = {}
+			}
 		},
 	},
 	tabline = {},
@@ -539,63 +556,67 @@ require('lualine').setup({
 })
 
 local wk = require('which-key')
-wk.register({ w = { ":w!<cr>", "Save" },
-	n = { f = { "<cmd>NvimTreeFindFile<CR>", "Explorer focus" }, w = { ":noa w!<cr>", "Save without autocmd" } },
-	o = { "<cmd>Telescope buffers<cr>", "Buffer search" },
-	f = { f = { "<cmd>Telescope find_files<cr>", "Find files" }, g = { "<cmd>Telescope live_grep<cr>", "Live grep" } },
-	g = { s = { ":Gitsigns stage_hunk<CR>", "Stage hunk" }, u = { ":Gitsigns undo_stage_hunk<CR>", "Undo Stage hunk" },
-		b = { ":Gitsigns blame_line<CR>", "Git blame" } },
-	b = {
-		name = "Buffers",
-		j = { "<cmd>BufferLinePick<cr>", "Jump" },
-		f = { "<cmd>Telescope buffers<cr>", "Find" },
-		b = { "<cmd>BufferLineCyclePrev<cr>", "Previous" },
-		n = { "<cmd>BufferLineCycleNext<cr>", "Next" },
-		-- w = { "<cmd>BufferWipeout<cr>", "Wipeout" }, -- TODO: implement this for bufferline
-		e = {
-			"<cmd>BufferLinePickClose<cr>",
-			"Pick which buffer to close",
+wk.register({
+		w = { ":w!<cr>", "Save" },
+		n = { f = { "<cmd>NvimTreeFindFile<CR>", "Explorer focus" }, w = { ":noa w!<cr>", "Save without autocmd" } },
+		o = { "<cmd>Telescope buffers<cr>", "Buffer search" },
+		f = { f = { "<cmd>Telescope find_files<cr>", "Find files" }, g = { "<cmd>Telescope live_grep<cr>", "Live grep" } },
+		g = {
+			s = { ":Gitsigns stage_hunk<CR>", "Stage hunk" },
+			u = { ":Gitsigns undo_stage_hunk<CR>", "Undo Stage hunk" },
+			b = { ":Gitsigns blame_line<CR>", "Git blame" }
 		},
-		h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
+		b = {
+			name = "Buffers",
+			j = { "<cmd>BufferLinePick<cr>", "Jump" },
+			f = { "<cmd>Telescope buffers<cr>", "Find" },
+			b = { "<cmd>BufferLineCyclePrev<cr>", "Previous" },
+			n = { "<cmd>BufferLineCycleNext<cr>", "Next" },
+			-- w = { "<cmd>BufferWipeout<cr>", "Wipeout" }, -- TODO: implement this for bufferline
+			e = {
+				"<cmd>BufferLinePickClose<cr>",
+				"Pick which buffer to close",
+			},
+			h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
+			l = {
+				"<cmd>BufferLineCloseRight<cr>",
+				"Close all to the right",
+			},
+			D = {
+				"<cmd>BufferLineSortByDirectory<cr>",
+				"Sort by directory",
+			},
+			L = {
+				"<cmd>BufferLineSortByExtension<cr>",
+				"Sort by language",
+			},
+		},
 		l = {
-			"<cmd>BufferLineCloseRight<cr>",
-			"Close all to the right",
+			name = "LSP",
+			a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+			d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
+			w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+			i = { "<cmd>LspInfo<cr>", "Info" },
+			I = { "<cmd>Mason<cr>", "Mason Info" },
+			j = {
+				vim.diagnostic.goto_next,
+				"Next Diagnostic",
+			},
+			k = {
+				vim.diagnostic.goto_prev,
+				"Prev Diagnostic",
+			},
+			l = { vim.lsp.codelens.run, "CodeLens Action" },
+			q = { vim.diagnostic.setloclist, "Quickfix" },
+			r = { vim.lsp.buf.rename, "Rename" },
+			s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
+			S = {
+				"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+				"Workspace Symbols",
+			},
+			e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
 		},
-		D = {
-			"<cmd>BufferLineSortByDirectory<cr>",
-			"Sort by directory",
-		},
-		L = {
-			"<cmd>BufferLineSortByExtension<cr>",
-			"Sort by language",
-		},
-	},
-	l = {
-		name = "LSP",
-		a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-		d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
-		w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
-		i = { "<cmd>LspInfo<cr>", "Info" },
-		I = { "<cmd>Mason<cr>", "Mason Info" },
-		j = {
-			vim.diagnostic.goto_next,
-			"Next Diagnostic",
-		},
-		k = {
-			vim.diagnostic.goto_prev,
-			"Prev Diagnostic",
-		},
-		l = { vim.lsp.codelens.run, "CodeLens Action" },
-		q = { vim.diagnostic.setloclist, "Quickfix" },
-		r = { vim.lsp.buf.rename, "Rename" },
-		s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-		S = {
-			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-			"Workspace Symbols",
-		},
-		e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
-	},
-}
+	}
 	,
 	{ prefix = "<leader>", mode = "n" })
 
@@ -790,17 +811,14 @@ local key_mappings = {
 		["<C-j>"] = "<C-w>j",
 		["<C-k>"] = "<C-w>k",
 		["<C-l>"] = "<C-w>l",
-
 		-- Resize with arrows
 		['<C-Up>'] = ':resize -2<CR>',
 		['<C-Down>'] = ':resize +2<CR>',
 		['<C-Left>'] = ':vertical resize -2<CR>',
 		['<C-Right>'] = ":vertical resize +2<CR>",
-
 		-- Move current line / block with Alt-j/k a la vscode.
 		['<A-j>'] = ':m .+1<CR>==',
 		['<A-k>'] = ':m .-2<CR>==',
-
 		-- QuickFix
 		[']q'] = ':cnext<CR>',
 		['[q'] = ':cprev<CR>',
@@ -853,7 +871,8 @@ vim.api.nvim_set_keymap('n', '<space><space>w',
 vim.api.nvim_set_keymap('n', '<space><space>b',
 	"<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>", {})
 vim.api.nvim_set_keymap('n', '<space><space>j',
-	"<cmd>lua require'hop'.hint_lines_skip_whitespace({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>", {})
+	"<cmd>lua require'hop'.hint_lines_skip_whitespace({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
+	{})
 vim.api.nvim_set_keymap('n', '<space><space>k',
 	"<cmd>lua require'hop'.hint_lines_skip_whitespace({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
 	{})
@@ -862,7 +881,8 @@ vim.api.nvim_set_keymap('v', '<space><space>w',
 vim.api.nvim_set_keymap('v', '<space><space>b',
 	"<cmd>lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>", {})
 vim.api.nvim_set_keymap('v', '<space><space>j',
-	"<cmd>lua require'hop'.hint_lines_skip_whitespace({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>", {})
+	"<cmd>lua require'hop'.hint_lines_skip_whitespace({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })<cr>",
+	{})
 vim.api.nvim_set_keymap('v', '<space><space>k',
 	"<cmd>lua require'hop'.hint_lines_skip_whitespace({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })<cr>",
 	{})
