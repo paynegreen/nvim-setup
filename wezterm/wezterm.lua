@@ -8,7 +8,7 @@ local activate_resize_keytable = act.ActivateKeyTable({
 	until_unknown = true,
 })
 
-local font_size = 12.5
+local font_size = 13
 
 return {
 	disable_default_key_bindings = true,
@@ -20,11 +20,7 @@ return {
 	},
 	-- default_prog = { '/opt/homebrew/bin/zsh' },
 	-- default_prog = { '/usr/local/bin/zsh' },
-	underline_thickness = "200%",
-	-- underline_position = "-2px",
-	-- freetype_load_target = 'HorizontalLcd',
 	font_size = font_size,
-	cell_width = 1.0,
 	line_height = 1.0,
 	-- timeout_milliseconds defaults to 1000 and can be omitted
 	leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 },

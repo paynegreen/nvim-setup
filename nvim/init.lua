@@ -39,15 +39,6 @@ require('packer').startup(function(use)
 	use { 'nvim-lua/popup.nvim' }
 	use { 'onsails/lspkind.nvim' }
 	use {
-		"hrsh7th/nvim-cmp",
-		requires = {
-			"L3MON4D3/LuaSnip",
-		},
-	}
-	use {
-		"rafamadriz/friendly-snippets",
-	}
-	use {
 		"hrsh7th/cmp-nvim-lsp",
 	}
 	use {
@@ -58,6 +49,16 @@ require('packer').startup(function(use)
 	}
 	use {
 		"hrsh7th/cmp-path",
+	}
+	use {
+		"hrsh7th/nvim-cmp",
+		requires = {
+			'hrsh7th/cmp-cmdline',
+			"L3MON4D3/LuaSnip",
+		},
+	}
+	use {
+		"rafamadriz/friendly-snippets",
 	}
 	use {
 		"folke/neodev.nvim",
@@ -115,6 +116,7 @@ require('packer').startup(function(use)
 	use {
 		'roobert/tailwindcss-colorizer-cmp.nvim'
 	}
+	use 'tpope/vim-fugitive'
 end)
 
 -- Setup
@@ -259,6 +261,8 @@ cmp.setup({
 		['<Tab>'] = function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
+			elseif luasnip.expandable() then
+				luasnip.expand()
 			elseif luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
 			else
