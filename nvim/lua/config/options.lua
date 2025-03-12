@@ -3,19 +3,6 @@
 -- Add any additional options here
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
--- Stop luasnip from jumping after exiting autocomplete mode to normal_mode
--- vim.api.nvim_create_autocmd("ModeChanged", {
---   pattern = "*",
---   callback = function()
---     if
---       ((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
---       and require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
---       and not require("luasnip").session.jump_active
---     then
---       require("luasnip").unlink_current()
---     end
---   end,
--- })
 local generic_opts = { noremap = true, silent = true }
 local mode_adapters = {
   insert_mode = "i",
@@ -37,13 +24,19 @@ local key_mappings = {
   normal_mode = {
     [",w"] = ":w!<cr><esc>",
     [",nw"] = ":noa w!<cr>",
+    ["<leader>w"] = ":w!<cr><esc>",
+    ["<leader>nw"] = ":noa w!<cr>",
     ["<C-e>"] = ":e! ~/.config/nvim/lua/config/options.lua<cr>",
     ["<leader>q"] = ":e! ~/buffer<CR>",
     ["<leader><cr>"] = ":noh<cr>",
     ["<leader>nf"] = ":Neotree<CR>",
-    ["<leader><space>"] = "<cmd>lua FindProjectFiles()<CR>",
     ["gv"] = ":vsplit | lua vim.lsp.buf.definition()<CR>",
     ["gk"] = "<cmd>lua vim.lsp.buf.signature_help()<CR>",
+    ["<leader>m"] = "<cmd>Mason<CR>",
+    ["gpl"] = "<cmd>Git pull<CR>",
+    ["<leader>yp"] = ":let @+ = expand('%:')<CR>",
+    ["<leader>yl"] = ":let @+ = expand('%:'). ':' .line('.')<CR>",
+    ["<leader><leader>"] = "<cmd>LazyVim.pick('files', { root = false })<CR>",
   },
   visual_mode = {
     -- Better indenting

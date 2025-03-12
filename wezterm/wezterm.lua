@@ -8,22 +8,37 @@ local activate_resize_keytable = act.ActivateKeyTable({
 	until_unknown = true,
 })
 
+local font = "JetBrains Mono"
+-- local font = "JetBrainsMono NF"
+local italic_font = font
 local font_size = 13
 
 return {
 	disable_default_key_bindings = true,
-	front_end = "OpenGL",
 	visual_bell = {
 		fade_in_duration_ms = 75,
 		fade_out_duration_ms = 75,
 		target = "CursorColor",
 	},
-	-- default_prog = { '/opt/homebrew/bin/zsh' },
-	-- default_prog = { '/usr/local/bin/zsh' },
+	font = wezterm.font({ family = font, weight = "Regular" }),
+	font_rules = {
+		{ intensity = "Bold", italic = false, font = wezterm.font({ family = font, weight = "Bold" }) },
+		{
+			intensity = "Bold",
+			italic = true,
+			font = wezterm.font({ family = italic_font, weight = "Bold", italic = true }),
+		},
+		{
+			italic = true,
+			font = wezterm.font({ family = italic_font, weight = "Regular", italic = true }),
+		},
+	},
 	font_size = font_size,
+	cell_width = 1.0,
 	line_height = 1.0,
 	tab_max_width = 64,
 	use_fancy_tab_bar = false,
+	underline_thickness = "200%",
 	color_scheme = "Dracula",
 	-- timeout_milliseconds defaults to 1000 and can be omitted
 	leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 },
@@ -58,8 +73,8 @@ return {
 		{ key = "8", mods = "CMD", action = act.ActivateTab(7) },
 		{ key = "9", mods = "CMD", action = act.ActivateTab(8) },
 		-- splits
-		{ key = "|", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-		{ key = '"', mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ key = ":", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+		{ key = ";", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		{ key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left") },
 		{ key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down") },
 		{ key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up") },
@@ -101,6 +116,16 @@ return {
 					wezterm.log_info("opening: " .. url)
 					wezterm.open_with(url)
 				end),
+			}),
+		},
+		{
+			key = "F",
+			mods = "LEADER|SHIFT",
+			action = wezterm.action.QuickSelectArgs({
+				label = "select project filename",
+				patterns = {
+					"(\\/[a-z_\\-\\s0-9\\.]+)+\\.(ex|exs|eex|heex|js|json|rb|py|sh)",
+				},
 			}),
 		},
 		{ key = "d", mods = "LEADER", action = act.DetachDomain("CurrentPaneDomain") },
