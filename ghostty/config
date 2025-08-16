@@ -1,0 +1,21 @@
+font-family = JetBrainsMono Nerd Font Mono
+font-size = 14
+# theme = farmhouse-light
+# theme = Material
+# theme = GitLab-Light
+# theme = Dracula
+# theme = catppuccin-macchiato
+theme = GitHub-Dark-Default
+# theme = GitHub-Dark-Colorblind
+
+macos-titlebar-style=transparent
+window-colorspace = "display-p3"
+
+# keybindings
+keybind = ctrl+a>r=reload_config
+keybind = ctrl+a>shift+;=new_split:right
+keybind = ctrl+a>;=new_split:down
+keybind = ctrl+a>j=goto_split:down
+keybind = ctrl+a>h=goto_split:left
+keybind = ctrl+a>l=goto_split:right
+keybind = ctrl+a>k=goto_split:up
