@@ -19,3 +19,7 @@ keybind = ctrl+a>j=goto_split:down
 keybind = ctrl+a>h=goto_split:left
 keybind = ctrl+a>l=goto_split:right
 keybind = ctrl+a>k=goto_split:up
+keybind = ctrl+a>ctrl+h=resize_split:left,100
+keybind = ctrl+a>ctrl+l=resize_split:right,100
+keybind = ctrl+a>ctrl+j=resize_split:down,100
+keybind = ctrl+a>ctrl+k=resize_split:up,100
