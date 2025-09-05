@@ -1,14 +1,11 @@
-local cmp = require("cmp")
+require("cmp")
+require("lspconfig")
 
-local lspconfig = require("lspconfig")
 require("mason").setup({
-  build = ":MasonUpdate",
-  opts_extend = { "ensure_installed" },
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shfmt",
-      },
-    },
+  ensure_installed = {
+    "stylua",
+    "shfmt",
+  },
 })
+
 require("mason-lspconfig").setup()

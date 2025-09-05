@@ -162,11 +162,11 @@ local plugins = {
     priority = 1000,
     lazy = false,
     opts = {
-      indent = { enabled = true, exclude = "Trouble" },
+      indent = { enabled = true, exclude = { "Trouble", "gitsigns" } },
       input = { enabled = true },
       explorer = { enabled = false },
       notifier = { enabled = true },
-      scope = { enabled = true, exclude = "Trouble" },
+      scope = { enabled = true, exclude = { "Trouble", "gitsigns" } },
       scroll = { enabled = true },
       statuscolumn = { enabled = true },
       words = { enabled = true },
@@ -188,10 +188,7 @@ local plugins = {
     'saghen/blink.cmp',
     dependencies = { 'rafamadriz/friendly-snippets' },
     version = '1.*',
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
     opts = {
-      keymap = { preset = 'default' },
       appearance = {
         nerd_font_variant = 'mono'
       },
