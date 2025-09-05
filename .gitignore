@@ -1,0 +1,11 @@
+# 1. Ignore everything by default
+*
+
+# 2. Un-ignore the directory AND all of its contents.
+# The trailing /** is the key part of the fix.
+!/ghostty/**
+!/nvim/**
+!/wezterm/**
+
+# 3. Don't ignore the .gitignore file itself
+!/.gitignore
