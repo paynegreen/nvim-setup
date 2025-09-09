@@ -1,13 +1,13 @@
 [
   {
-    "key": "ctrl+j",
-    "command": "workbench.action.quickOpenNavigateNext",
-    "when": "inQuickOpen"
+    "key": "h",
+    "command": "list.collapse",
+    "when": "inQuickOpen && !inputFocus"
   },
   {
-    "key": "ctrl+k", 
-    "command": "workbench.action.quickOpenNavigatePrevious",
-    "when": "inQuickOpen"
+    "key": "l",
+    "command": "list.expand",
+    "when": "inQuickOpen && !inputFocus"
   },
   {
     "key": "j",
@@ -16,12 +16,22 @@
   },
   {
     "key": "k",
-    "command": "workbench.action.quickOpenNavigatePrevious", 
+    "command": "workbench.action.quickOpenNavigatePrevious",
     "when": "inQuickOpen && !inputFocus"
   },
   {
     "key": "i",
     "command": "workbench.action.quickOpenNavigateToInput",
     "when": "inQuickOpen && !inputFocus"
+  },
+  {
+    "key": "escape",
+    "command": "workbench.action.closeQuickOpen",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "enter",
+    "command": "workbench.action.acceptSelectedQuickOpenItem",
+    "when": "inQuickOpen"
   }
 ]
