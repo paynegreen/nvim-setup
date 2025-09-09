@@ -1,37 +1,7 @@
 [
   {
-    "key": "h",
-    "command": "list.collapse",
-    "when": "inQuickOpen && !inputFocus"
-  },
-  {
-    "key": "l",
-    "command": "list.expand",
-    "when": "inQuickOpen && !inputFocus"
-  },
-  {
-    "key": "j",
-    "command": "workbench.action.quickOpenNavigateNext",
-    "when": "inQuickOpen && !inputFocus"
-  },
-  {
-    "key": "k",
-    "command": "workbench.action.quickOpenNavigatePrevious",
-    "when": "inQuickOpen && !inputFocus"
-  },
-  {
-    "key": "i",
-    "command": "workbench.action.quickOpenNavigateToInput",
-    "when": "inQuickOpen && !inputFocus"
-  },
-  {
-    "key": "escape",
-    "command": "workbench.action.closeQuickOpen",
-    "when": "inQuickOpen"
-  },
-  {
-    "key": "enter",
-    "command": "workbench.action.acceptSelectedQuickOpenItem",
-    "when": "inQuickOpen"
+    "key": "space space",
+    "command": "workbench.action.quickOpen",
+    "when": "neovim.mode == 'normal' && editorTextFocus && !suggestWidgetVisible && !inQuickOpen"
   }
 ]
