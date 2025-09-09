@@ -1,0 +1,27 @@
+[
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.quickOpenNavigateNext",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+k", 
+    "command": "workbench.action.quickOpenNavigatePrevious",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "j",
+    "command": "workbench.action.quickOpenNavigateNext",
+    "when": "inQuickOpen && !inputFocus"
+  },
+  {
+    "key": "k",
+    "command": "workbench.action.quickOpenNavigatePrevious", 
+    "when": "inQuickOpen && !inputFocus"
+  },
+  {
+    "key": "i",
+    "command": "workbench.action.quickOpenNavigateToInput",
+    "when": "inQuickOpen && !inputFocus"
+  }
+]
