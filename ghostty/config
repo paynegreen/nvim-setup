@@ -5,7 +5,7 @@ font-size = 14
 # theme = GitLab-Light
 # theme = Dracula
 # theme = catppuccin-macchiato
-theme = GitHub-Dark-Default
+# theme = GitHub-Dark-Default
 # theme = GitHub-Dark-Colorblind
 
 macos-titlebar-style=transparent
@@ -23,3 +23,4 @@ keybind = ctrl+a>ctrl+h=resize_split:left,100
 keybind = ctrl+a>ctrl+l=resize_split:right,100
 keybind = ctrl+a>ctrl+j=resize_split:down,100
 keybind = ctrl+a>ctrl+k=resize_split:up,100
+keybind = ctrl+a>z=toggle_split_zoom
