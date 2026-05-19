@@ -6,6 +6,7 @@
 !/ghostty/**
 !/nvim/**
 !/wezterm/**
+!/cmux
 !/cmux/**
 
 # 3. Don't ignore the .gitignore file itself
