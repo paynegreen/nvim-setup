@@ -7,7 +7,7 @@ Dotfiles and app configs for setting up a new MacBook.
 | `shell/.zshrc`, `.bashrc`, `.bash_aliases` | `~/` |
 | `tmux/.tmux.conf` | `~/.tmux.conf` |
 | `git/.gitconfig`, `git/ignore` | `~/.gitconfig`, `~/.config/git/ignore` |
-| `nvim/`, `wezterm/`, `ghostty/`, `mise/`, `alacritty/` | `~/.config/<name>` |
+| `nvim/`, `wezterm/`, `ghostty/`, `mise/` | `~/.config/<name>` |
 | `claude/` | `~/.claude/` (settings + statusline) |
 | `cursor/` | `~/Library/Application Support/Cursor/User/` |
 | `agents/.skill-lock.json` | manifest of installed agent skills |

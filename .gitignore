@@ -19,8 +19,6 @@
 !/git/**
 !/mise
 !/mise/**
-!/alacritty
-!/alacritty/**
 !/claude
 !/claude/**
 !/agents

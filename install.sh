@@ -15,7 +15,6 @@ LINKS=(
   "git/.gitconfig|$HOME/.gitconfig"
   "git/ignore|$HOME/.config/git/ignore"
   "mise/config.toml|$HOME/.config/mise/config.toml"
-  "alacritty/alacritty.yml|$HOME/.config/alacritty/alacritty.yml"
   "nvim|$HOME/.config/nvim"
   "wezterm|$HOME/.config/wezterm"
   "ghostty|$HOME/.config/ghostty"
