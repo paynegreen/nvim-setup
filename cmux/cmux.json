@@ -127,6 +127,10 @@
     "appearance": "dark"
   },
 
+  "terminal": {
+    "copyOnSelect": true
+  },
+
   "shortcuts": {
     "bindings": {
       "reloadConfiguration": ["ctrl+a", "r"],
