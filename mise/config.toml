@@ -1,0 +1,6 @@
+[tools]
+elixir = "latest"
+erlang = "latest"
+fzf = "latest"
+node = "latest"
+ruby = "latest"

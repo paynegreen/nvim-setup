@@ -1,0 +1,19 @@
+import:
+  - /Users/tsatsu/dracula.yml
+
+window:
+  startup_mode: Windowed
+
+font:
+  normal:
+    family: Cousine for Powerline
+
+  size: 13.0
+
+  offset:
+    x: 0
+    y: 0
+  
+  glyph_offset:
+    x: 0
+    y: 0
