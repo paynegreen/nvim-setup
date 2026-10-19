@@ -1,0 +1,4 @@
+# Copy to ~/.zshrc.local and fill in. Never commit the real file.
+export MICROSOFT_CLIENT_ID=
+export MICROSOFT_CLIENT_SECRET=
+export GITHUB_PAT=

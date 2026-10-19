@@ -1,0 +1,31 @@
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "space space",
+    "command": "workbench.action.quickOpen",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "ctrl+v",
+    "command": "explorer.openToSide",
+    "when": "explorerViewletFocus && foldersViewVisible && !inputFocus"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "-workbench.action.openRecent"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "extension.vim_ctrl+r",
+    "when": "editorTextFocus && vim.active && vim.use<C-r> && !inDebugRepl"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "-extension.vim_ctrl+r",
+    "when": "editorTextFocus && vim.active && vim.use<C-r> && !inDebugRepl"
+  },
+  {
+    "key": "cmd+i",
+    "command": "composerMode.agent"
+  }
+]

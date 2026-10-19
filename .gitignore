@@ -1,13 +1,37 @@
 # 1. Ignore everything by default
 *
 
-# 2. Un-ignore the directory AND all of its contents.
-# The trailing /** is the key part of the fix.
+# 2. Un-ignore tracked config dirs. A dir needs both `!/dir` and `!/dir/**`
+# so it is re-included even before it has tracked files.
+!/ghostty
 !/ghostty/**
+!/nvim
 !/nvim/**
+!/wezterm
 !/wezterm/**
 !/cmux
 !/cmux/**
+!/shell
+!/shell/**
+!/tmux
+!/tmux/**
+!/git
+!/git/**
+!/mise
+!/mise/**
+!/claude
+!/claude/**
+!/agents
+!/agents/**
+!/cursor
+!/cursor/**
 
-# 3. Don't ignore the .gitignore file itself
+# 3. Top-level files
 !/.gitignore
+!/README.md
+!/Brewfile
+!/install.sh
+!/cursor_rules.txt
+
+# 4. Never track local secrets
+.zshrc.local
