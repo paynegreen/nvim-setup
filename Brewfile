@@ -1,5 +1,3 @@
-tap "adoptopenjdk/openjdk"
-tap "gigalixir/brew"
 tap "homebrew/services"
 # Search tool like grep, but optimized for programmers
 brew "ack"
@@ -73,14 +71,10 @@ brew "nmap"
 brew "nvm"
 # Development kit for the Java programming language
 brew "openjdk@17", link: true
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@1.1"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
 # Highly capable, feature-rich programming language
 brew "perl"
-# Object-relational database system
-brew "postgresql@14"
 # Object-relational database system
 brew "postgresql@15"
 # Object-relational database system
@@ -88,11 +82,7 @@ brew "postgresql@16"
 # Implementation of Telnet and SSH
 brew "putty"
 # Interpreted, interactive, object-oriented programming language
-brew "python@3.10"
-# Interpreted, interactive, object-oriented programming language
 brew "python@3.11"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.9"
 # Generate C-based recognizers from regular expressions
 brew "re2c"
 # Search tool like grep and The Silver Searcher
@@ -123,8 +113,6 @@ brew "wxwidgets"
 brew "zlib"
 # Fast static site generator in a single binary with everything built-in
 brew "zola"
-# GPU-accelerated terminal emulator
-cask "alacritty"
 # Android SDK component
 cask "android-platform-tools"
 # Universal database tool and SQL client
