@@ -17,38 +17,29 @@ Dotfiles and app configs for setting up a new MacBook.
 ## New machine
 
 ```sh
-# 1. Homebrew + packages
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew bundle --file=Brewfile
-
-# 2. oh-my-zsh, then the custom plugins listed in .zshrc
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-ZC=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions "$ZC/zsh-autosuggestions"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZC/zsh-syntax-highlighting"
-git clone https://github.com/zsh-users/zsh-completions "$ZC/zsh-completions"
-git clone https://github.com/trystan2k/zsh-tab-title "$ZC/zsh-tab-title"
-git clone https://github.com/agkozak/zsh-z "$ZC/zsh-z"
-
-# 3. tmux plugin manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-# 4. Symlink configs (existing files are moved to *.bak)
-./install.sh
-
-# 5. Secrets live in ~/.zshrc.local (untracked) — fill it in
-$EDITOR ~/.zshrc.local
-
-# 6. Runtimes
-mise install
+git clone https://github.com/paynegreen/nvim-setup ~/workarea/nvim-setup
+cd ~/workarea/nvim-setup && ./install.sh
 ```
+
+`install.sh` is interactive and safe to re-run. It walks through, asking before each step:
+
+1. Homebrew (installs it if missing)
+2. Brewfile taps, formulae and casks — install `[a]ll`, `[c]hoose each`, or `[s]kip`
+3. oh-my-zsh and the custom zsh plugins `.zshrc` expects
+4. tmux plugin manager
+5. Config symlinks, per file or `a(ll)`; existing files are moved to `<name>.bak.<timestamp>`
+6. `~/.zshrc.local` from the template — fill in your secrets afterwards
+7. `mise install` runtimes
+8. Go and npm global tools from the Brewfile (offers to install Go if missing)
+9. Agent skills from `agents/.skill-lock.json`, one source at a time
+
+The Brewfile lists only top-level formulae; dependencies are pulled in automatically.
 
 ### Claude Code
 
 Plugins (`enabledPlugins`, `extraKnownMarketplaces`) are restored from
-`claude/settings.json` on first launch. Skills in `agents/.skill-lock.json` come
-from `mattpocock/skills`, `vercel-labs/skills` and `anthropics/claude-code`;
-reinstall with `npx skills add <source>`.
+`claude/settings.json` on first launch. Skills are restored by step 9 of
+`install.sh` (`npx skills add <source> -g`).
 
 ## Notes
 

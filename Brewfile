@@ -3,34 +3,14 @@ tap "gigalixir/brew"
 tap "homebrew/services"
 # Search tool like grep, but optimized for programmers
 brew "ack"
-# New file format for still image compression
-brew "jpeg-xl"
-# Codec library for encoding and decoding AV1 video streams
-brew "aom"
-# Mozilla CA certificate store
-brew "ca-certificates"
 # Companion library to apr, the Apache Portable Runtime library
 brew "apr-util"
-# Core application library for C
-brew "glib"
-# C library implementing the SSH2 protocol
-brew "libssh2"
-# Regular expressions library
-brew "oniguruma"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # High performance key/value database
 brew "berkeley-db", link: true
 # Parser generator
 brew "bison"
-# Collection of portable C++ source libraries
-brew "boost"
-# XML-based font configuration API for X Windows
-brew "fontconfig"
-# Vector graphics library with cross-device output support
-brew "cairo"
-# OpenType text shaping engine
-brew "harfbuzz"
 # Command-line tool to manipulate Android App Bundles
 brew "bundletool"
 # Freely available high-quality data compressor
@@ -41,20 +21,6 @@ brew "cocoapods"
 brew "curl"
 # Load/unload environment variables based on $PWD
 brew "direnv"
-# NaCl networking and cryptography library
-brew "libsodium"
-# Collection of reusable C++ library artifacts developed at Facebook
-brew "folly"
-# C++14 implementation of the TLS-1.3 standard
-brew "fizz"
-# Modular, composable client/server abstractions framework
-brew "wangle"
-# Facebook's branch of Apache Thrift, including a new C++ server
-brew "fbthrift"
-# Thrift functions for querying information from a service
-brew "fb303"
-# Shared library for Watchman and Eden projects
-brew "edencommon"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
 # Play, record, convert, and stream select audio and video codecs
@@ -63,56 +29,26 @@ brew "ffmpeg"
 brew "foreman"
 # Libraries to talk to Microsoft SQL Server and Sybase databases
 brew "freetds"
-# Graphics library to dynamically manipulate images
-brew "gd"
-# Toolkit for image loading and pixel buffer manipulation
-brew "gdk-pixbuf"
 # GitHub command-line tool
 brew "gh"
-# Framework for layout and rendering of i18n text
-brew "pango"
 # Interpreter for PostScript and PDF
 brew "ghostscript"
 # GIF image/animation creator/editor
 brew "gifsicle"
 # Distributed revision control system
 brew "git"
-# GNU multiple precision arithmetic library
-brew "gmp"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
-# International domain name library (IDNA2008, Punycode and TR46)
-brew "libidn2"
-# GNU Transport Layer Security (TLS) Library
-brew "gnutls"
-# Assuan IPC Library
-brew "libassuan"
 # GNU Privacy Guard (OpenPGP)
 brew "gnupg"
-# Package compiler and linker metadata toolkit
-brew "pkgconf"
 # Generate introspection data for GObject libraries
 brew "gobject-introspection"
-# Library for manipulating JPEG-2000 images
-brew "jasper"
-# Image manipulation
-brew "netpbm"
-# GNU triangulated surface library
-brew "gts"
-# Library to render SVG files using Cairo
-brew "librsvg"
 # Graph visualization software from AT&T and Bell Labs
 brew "graphviz"
 # GNU Ubiquitous Intelligent Language for Extensions
 brew "guile"
 # Improved top (interactive process viewer)
 brew "htop"
-# Database of common MIME types
-brew "shared-mime-info"
-# ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
-brew "libheif"
-# Library for reading RAW files from digital photo cameras
-brew "libraw"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
 # Read your tfstate or HCL to generate a graph
